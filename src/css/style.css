@@ -88,16 +88,15 @@ button {
   min-height: 560px;
   overflow: hidden;
   color: var(--color-white);
-  /* Shows through on narrow/tall screens (see the max-width:640px override
-     below), where the product shot uses background-size:contain and can't
-     fill every edge — picked to match the photo's warm background tone. */
-  background-color: #7a6248;
   background-image:
     url('../assets/images/hero/hero-gradient-fade.png'),
     url('../assets/images/hero/hero-gradient-vignette.png'),
     url('../assets/images/hero/hero-background.png');
   background-size: cover, cover, cover;
-  background-position: top, top, top;
+  /* Anchored bottom-right — that's where the product box sits in the
+     photo, so on unusually tall/narrow desktop windows "cover" crops
+     away from the top/left instead of cutting the box off. */
+  background-position: right bottom, right bottom, right bottom;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 
@@ -328,20 +327,17 @@ button {
 
   /* The desktop photo is landscape (1440x820) — cropped to "cover" a tall
      narrow phone screen, it pushed the product box almost entirely out of
-     frame. These -mobile assets are a portrait crop centered on the box
-     (see assets/images/hero/), and background-size:contain guarantees the
-     whole box stays visible. The photo runs dark (top, for text contrast)
-     to light sandy tones (bottom) — a flat fallback color couldn't match
-     both ends, so the letterboxing is filled by a matching vertical
-     gradient instead (added as the bottom-most background layer). */
+     frame. These -mobile assets are a portrait shot with the box framed
+     near the top (see assets/images/hero/), so background-position:top
+     fills the screen edge-to-edge and crops from the bottom instead —
+     the box stays fully visible without any letterboxing. */
   .hero {
     background-image:
       url('../assets/images/hero/hero-gradient-fade-mobile.png'),
       url('../assets/images/hero/hero-gradient-vignette-mobile.png'),
-      url('../assets/images/hero/hero-background-mobile.png'),
-      linear-gradient(to bottom, #4a3c32 0%, #6b5645 18%, #c19770 82%, #c19770 100%);
-    background-size: contain, contain, contain, cover;
-    background-position: center, center, center, center;
+      url('../assets/images/hero/hero-background-mobile.png');
+    background-size: cover, cover, cover;
+    background-position: top, top, top;
   }
 }
 
