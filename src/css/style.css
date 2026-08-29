@@ -284,13 +284,31 @@ button {
 /* ---------------------------------------------
    Responsive
 --------------------------------------------- */
-@media (max-width: 1024px) {
+@media (max-width: 1400px) {
   .hero__heading {
     font-size: 48px;
   }
 
   .hero__content {
     padding: 140px 40px 0;
+  }
+
+  /* The desktop photo is landscape (1920x1080) — cropped to "cover" a
+     tall narrow screen (tablets in portrait like iPad Air/Pro, down to
+     phones, and laptop windows up to 1400px), it squeezes down to a
+     sliver and pushes the product box far from the text. These -tablet
+     assets are a portrait shot instead (see assets/images/hero/) —
+     overridden again below with an even taller -mobile crop once
+     phone-sized text kicks in at max-width:640px. Anchored bottom-right,
+     same as the base .hero rule, so the box+bowl are never the part
+     that gets cropped — cover always crops from the top/left instead. */
+  .hero {
+    background-image:
+      url('../assets/images/hero/hero-gradient-fade-tablet.png'),
+      url('../assets/images/hero/hero-gradient-vignette-tablet.png'),
+      url('../assets/images/hero/hero-background-tablet.png');
+    background-size: cover, cover, cover;
+    background-position: right bottom, right bottom, right bottom;
   }
 }
 
@@ -325,19 +343,13 @@ button {
     gap: 20px;
   }
 
-  /* The desktop photo is landscape (1440x820) — cropped to "cover" a tall
-     narrow phone screen, it pushed the product box almost entirely out of
-     frame. These -mobile assets are a portrait shot with the box framed
-     near the top (see assets/images/hero/), so background-position:top
-     fills the screen edge-to-edge and crops from the bottom instead —
-     the box stays fully visible without any letterboxing. */
+  /* Phones — overrides the tablet photo set above with a taller crop
+     built for narrower screens. Same cover/bottom-right anchoring. */
   .hero {
     background-image:
       url('../assets/images/hero/hero-gradient-fade-mobile.png'),
       url('../assets/images/hero/hero-gradient-vignette-mobile.png'),
       url('../assets/images/hero/hero-background-mobile.png');
-    background-size: cover, cover, cover;
-    background-position: top, top, top;
   }
 }
 
@@ -581,13 +593,25 @@ button {
 
 .occasions__card-image {
   height: 362px;
+  overflow: hidden;
   background: var(--color-placeholder);
   transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.occasions__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
 }
 
 .occasions__card:hover .occasions__card-image {
   transform: translateY(-4px);
   background-color: #dcdcdc;
+}
+
+.occasions__card:hover .occasions__card-image img {
+  transform: scale(1.05);
 }
 
 .occasions__card-text {
