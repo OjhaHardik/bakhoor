@@ -1,0 +1,7 @@
+# Deny all direct access to this folder — schema.sql exposes the seed admin password hash.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Deny from all
+</IfModule>
