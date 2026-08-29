@@ -1,0 +1,10 @@
+# Local secrets — copy src/config/config.example.php to config.php and fill in your own
+src/config/config.php
+
+# OS junk
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

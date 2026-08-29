@@ -1,0 +1,1114 @@
+/* =================================================
+   style.css
+   Global tokens/reset + everything on the homepage
+   (index.html): hero, about, occasions carousel,
+   hadith quote, stories, feature sections, footer.
+   Non-hero pages (login/order/signup) additionally
+   load pages.css for their own chrome.
+================================================= */
+
+/* ---------------------------------------------
+   Reset
+--------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-white);
+  background: var(--color-overlay);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------
+   Tokens
+--------------------------------------------- */
+:root {
+  --color-white: #ffffff;
+  --color-dark-text: #1e1e1e;
+  --color-overlay: #2e2424;
+  --color-gold: #b78a4a;
+  --color-gold-light: #dbb05f;
+  --color-green: #0e2b03;
+  --color-body-text: #333333;
+  --color-placeholder: #e6e6e6;
+
+  --font-serif: 'Cormorant Infant', 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------
+   Hero
+--------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 560px;
+  overflow: hidden;
+  color: var(--color-white);
+  /* Shows through on narrow/tall screens (see the max-width:640px override
+     below), where the product shot uses background-size:contain and can't
+     fill every edge — picked to match the photo's warm background tone. */
+  background-color: #7a6248;
+  background-image:
+    url('../assets/images/hero/hero-gradient-fade.png'),
+    url('../assets/images/hero/hero-gradient-vignette.png'),
+    url('../assets/images/hero/hero-background.png');
+  background-size: cover, cover, cover;
+  background-position: top, top, top;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+/* ---- Nav ---- */
+.hero__nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; /* .hero__content is also positioned and comes after in the DOM, so without
+                 this it paints on top and its (invisible) padding swallows nav clicks */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 80px;
+  padding: 0 48px;
+}
+
+.hero__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s var(--ease-out), filter 0.4s var(--ease-out);
+}
+
+.hero__logo:hover,
+.hero__logo:focus-visible {
+  transform: translate(-50%, -50%) scale(1.08) rotate(4deg);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
+}
+
+.hero__logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.hero__icon-btn img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.hero__icon-btn:hover,
+.hero__icon-btn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.hero__icon-btn:hover img,
+.hero__icon-btn:focus-visible img {
+  transform: scale(1.1);
+}
+
+.hero__icon-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* ---- Content ---- */
+.hero__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 265px 72px 0;
+}
+
+.hero__heading {
+  font-family: var(--font-serif);
+  font-size: 68px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  animation: hero-rise 0.9s var(--ease-out) both;
+}
+
+.hero__heading-line {
+  display: block;
+}
+
+@media (min-width: 641px) {
+  .hero__heading-line {
+    white-space: nowrap;
+  }
+}
+
+.hero__heading-line--light {
+  font-weight: 300;
+}
+
+.hero__heading-line--bold {
+  font-weight: 700;
+}
+
+.hero__subtext {
+  font-size: 16px;
+  line-height: 1.4;
+  max-width: 418px;
+  color: rgba(255, 255, 255, 0.92);
+  animation: hero-rise 0.9s var(--ease-out) 0.12s both;
+}
+
+.hero__cta {
+  /* Extra ring around the button only — colors are untouched */
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 5px;
+  animation: hero-rise 0.9s var(--ease-out) 0.24s both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------
+   Buttons
+--------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  padding: 16px 20px;
+  border: 1px solid var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.btn--primary {
+  background-color: var(--color-white);
+  color: var(--color-dark-text);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-white);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.btn--primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------------------------------------------
+   Responsive
+--------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero__heading {
+    font-size: 48px;
+  }
+
+  .hero__content {
+    padding: 140px 40px 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 640px;
+  }
+
+  .hero__nav {
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .hero__logo {
+    position: static;
+    transform: none;
+  }
+
+  .hero__logo:hover,
+  .hero__logo:focus-visible {
+    transform: scale(1.08) rotate(4deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__heading {
+    font-size: 36px;
+  }
+
+  .hero__content {
+    padding: 100px 24px 0;
+    gap: 20px;
+  }
+
+  /* The desktop photo is landscape (1440x820) — cropped to "cover" a tall
+     narrow phone screen, it pushed the product box almost entirely out of
+     frame. These -mobile assets are a portrait crop centered on the box
+     (see assets/images/hero/), and background-size:contain guarantees the
+     whole box stays visible. The photo runs dark (top, for text contrast)
+     to light sandy tones (bottom) — a flat fallback color couldn't match
+     both ends, so the letterboxing is filled by a matching vertical
+     gradient instead (added as the bottom-most background layer). */
+  .hero {
+    background-image:
+      url('../assets/images/hero/hero-gradient-fade-mobile.png'),
+      url('../assets/images/hero/hero-gradient-vignette-mobile.png'),
+      url('../assets/images/hero/hero-background-mobile.png'),
+      linear-gradient(to bottom, #4a3c32 0%, #6b5645 18%, #c19770 82%, #c19770 100%);
+    background-size: contain, contain, contain, cover;
+    background-position: center, center, center, center;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__subtext {
+    max-width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
+/* ---------------------------------------------
+   About
+--------------------------------------------- */
+.about {
+  background: var(--color-white);
+  padding: 72px 79px;
+}
+
+.about__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  max-width: 1281px;
+  margin: 0 auto;
+}
+
+.about__heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 68px;
+  line-height: 1;
+  color: var(--color-green);
+  white-space: nowrap;
+}
+
+.about__text {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-body-text);
+  max-width: 418px;
+}
+
+/* ---- Photo gallery ----
+   3-column collage: one tall product shot, one narrow
+   column (placeholder + bowl photo), one wide column
+   (placeholder + lifestyle photo). Aspect ratios below
+   keep each tile's proportions steady while its
+   column/row width changes across breakpoints. */
+.about__gallery {
+  display: grid;
+  grid-template-columns: 523fr 305fr 413fr;
+  gap: 20px;
+  max-width: 1281px;
+  margin: 120px auto 0;
+}
+
+.about__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about__tile {
+  overflow: hidden;
+  background: var(--color-dark-text);
+}
+
+.about__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.about__tile:hover img {
+  transform: scale(1.05);
+}
+
+.about__tile--box {
+  aspect-ratio: 523 / 530;
+}
+
+.about__col .about__tile--placeholder {
+  aspect-ratio: 305 / 310;
+}
+
+.about__tile--bowl {
+  aspect-ratio: 305 / 200;
+}
+
+.about__col--wide .about__tile--placeholder {
+  aspect-ratio: 413 / 217;
+}
+
+.about__tile--lifestyle {
+  aspect-ratio: 413 / 293;
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding: 56px 40px;
+  }
+
+  .about__heading {
+    font-size: 48px;
+  }
+
+  .about__gallery {
+    margin-top: 64px;
+  }
+}
+
+@media (max-width: 900px) {
+  .about__header {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about__text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .about {
+    padding: 48px 24px;
+  }
+
+  .about__heading {
+    font-size: 36px;
+    white-space: normal;
+  }
+
+  .about__gallery {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+
+  .about__col,
+  .about__col--wide {
+    display: contents;
+  }
+
+  .about__tile--box {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about__col .about__tile--placeholder,
+  .about__col--wide .about__tile--placeholder {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ---------------------------------------------
+   Occasions
+--------------------------------------------- */
+.occasions {
+  background: var(--color-white);
+  padding: 72px 79px;
+}
+
+.occasions__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.occasions__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 402px;
+  flex-shrink: 0;
+}
+
+.occasions__heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 68px;
+  line-height: 0.8;
+  color: var(--color-green);
+}
+
+.occasions__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-green);
+}
+
+.occasions__link-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.occasions__link:hover .occasions__link-icon,
+.occasions__link:focus-visible .occasions__link-icon {
+  transform: translateX(4px);
+}
+
+/* ---- Horizontally-scrolling card carousel ----
+   width:100% + min-width:0 are required: as a flex item
+   this element would otherwise grow to fit every card
+   instead of clipping to the row and scrolling internally,
+   which pushes the whole page into horizontal scroll. */
+.occasions__track {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  gap: 20px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.occasions__track::-webkit-scrollbar {
+  display: none;
+}
+
+.occasions__card {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 305px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.occasions__card-image {
+  height: 362px;
+  background: var(--color-placeholder);
+  transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.occasions__card:hover .occasions__card-image {
+  transform: translateY(-4px);
+  background-color: #dcdcdc;
+}
+
+.occasions__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.occasions__card-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.occasions__card-desc {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--color-body-text);
+}
+
+.occasions__nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  padding: 0;
+  background: transparent;
+  border: 2px solid var(--color-green);
+  transition: background-color 0.3s var(--ease-out);
+}
+
+.arrow-btn img {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.arrow-btn:hover,
+.arrow-btn:focus-visible {
+  background-color: var(--color-green);
+}
+
+.arrow-btn:hover img,
+.arrow-btn:focus-visible img {
+  transform: translateX(3px);
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 1024px) {
+  .occasions {
+    padding: 56px 40px;
+  }
+
+  .occasions__heading {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 900px) {
+  .occasions__row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .occasions__intro {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .occasions {
+    padding: 48px 24px;
+  }
+
+  .occasions__heading {
+    font-size: 36px;
+  }
+
+  .occasions__card {
+    width: 240px;
+  }
+
+  .occasions__card-image {
+    height: 280px;
+  }
+}
+
+/* ---------------------------------------------
+   Dark CTA button (used on white sections)
+--------------------------------------------- */
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  padding: 16px 20px;
+  background: var(--color-green);
+  border: 1px solid var(--color-green);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.35s var(--ease-out), transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.btn-dark:hover,
+.btn-dark:focus-visible {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btn-dark:active {
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------
+   Hadith quote
+--------------------------------------------- */
+.hadith {
+  background: var(--color-white);
+  padding: 96px 79px;
+}
+
+.hadith__inner {
+  max-width: 730px;
+  margin: 0 auto;
+}
+
+.hadith__mark {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--color-dark-text);
+}
+
+.hadith__text {
+  margin-top: 8px;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--color-dark-text);
+}
+
+.hadith__cite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-body-text);
+}
+
+.hadith__cite img {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---------------------------------------------
+   Stories
+--------------------------------------------- */
+.stories {
+  background: var(--color-white);
+  padding: 72px 79px;
+}
+
+.stories__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1282px;
+  margin: 0 auto 56px;
+}
+
+.stories__heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1.05;
+  color: var(--color-green);
+  max-width: 500px;
+}
+
+.stories__intro-text {
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-body-text);
+  max-width: 418px;
+  margin-bottom: 24px;
+}
+
+/* ---- 3-card grid ----
+   Two real photos plus one placeholder tile, matching
+   the pattern already used in the About gallery above. */
+.stories__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1282px;
+  margin: 0 auto;
+}
+
+.stories__card-image {
+  aspect-ratio: 667 / 522;
+  overflow: hidden;
+  background: var(--color-placeholder);
+}
+
+.stories__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.stories__card:hover .stories__card-image img {
+  transform: scale(1.05);
+}
+
+.stories__card-title {
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.stories__card-desc {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-body-text);
+}
+
+.stories__nav {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1282px;
+  margin: 40px auto 0;
+}
+
+@media (max-width: 1024px) {
+  .hadith,
+  .stories {
+    padding: 56px 40px;
+  }
+
+  .stories__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .stories__row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .hadith,
+  .stories {
+    padding: 48px 24px;
+  }
+
+  .hadith__mark {
+    font-size: 40px;
+  }
+
+  .hadith__text {
+    font-size: 17px;
+  }
+
+  .stories__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stories__heading {
+    font-size: 32px;
+  }
+}
+
+/* ---------------------------------------------
+   Feature sections (first thing / find stillness)
+--------------------------------------------- */
+.feature {
+  background: var(--color-white);
+  padding: 72px 79px;
+}
+
+.feature__inner {
+  max-width: 1282px;
+  margin: 0 auto;
+}
+
+.feature__heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1.05;
+  color: var(--color-green);
+}
+
+.feature__text {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-body-text);
+  max-width: 647px;
+}
+
+/* ---- .feature--stacked: "The first thing before everything else" ----
+   Heading + text on top, one full-width image below. */
+.feature--stacked .feature__image {
+  margin-top: 40px;
+  aspect-ratio: 1285 / 660;
+  overflow: hidden;
+  background: var(--color-placeholder);
+}
+
+.feature--stacked .feature__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- .feature--split: "Find the stillness you've been missing" ----
+   Image and text side by side, 50/50. */
+.feature--split .feature__inner {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.feature--split .feature__image {
+  flex: 1 1 50%;
+  aspect-ratio: 640 / 640;
+  overflow: hidden;
+  background: var(--color-placeholder);
+}
+
+.feature--split .feature__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature--split .feature__content {
+  flex: 1 1 50%;
+}
+
+.feature--split .feature__text {
+  max-width: 589px;
+}
+
+.feature__cta {
+  margin-top: 32px;
+}
+
+@media (max-width: 1024px) {
+  .feature {
+    padding: 56px 40px;
+  }
+
+  .feature__heading {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 900px) {
+  .feature--split .feature__inner {
+    flex-direction: column;
+  }
+
+  .feature--split .feature__image,
+  .feature--split .feature__content {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature {
+    padding: 48px 24px;
+  }
+
+  .feature__heading {
+    font-size: 30px;
+  }
+
+  .feature--stacked .feature__image {
+    margin-top: 24px;
+  }
+}
+
+/* ---------------------------------------------
+   Footer
+--------------------------------------------- */
+.site-footer {
+  background: var(--color-green);
+  color: var(--color-gold-light);
+  padding: 64px 79px;
+}
+
+.site-footer__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 48px;
+  max-width: 1282px;
+  margin: 0 auto;
+}
+
+/* ---- Brand block: logo, wordmark, social icons ---- */
+.site-footer__brand img {
+  width: 56px;
+  height: 56px;
+}
+
+.site-footer__wordmark {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.site-footer__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold-light);
+  color: var(--color-gold-light);
+  transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+.site-footer__social a:hover,
+.site-footer__social a:focus-visible {
+  background-color: var(--color-gold-light);
+  color: var(--color-green);
+}
+
+.site-footer__social svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Two policy-link columns ---- */
+.site-footer__links {
+  display: flex;
+  gap: 96px;
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.site-footer__col a {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  transition: color 0.3s var(--ease-out);
+}
+
+.site-footer__col a:hover,
+.site-footer__col a:focus-visible {
+  color: var(--color-white);
+}
+
+@media (max-width: 1024px) {
+  .site-footer {
+    padding: 48px 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    padding: 40px 24px;
+  }
+
+  .site-footer__links {
+    gap: 40px;
+  }
+}

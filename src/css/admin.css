@@ -1,0 +1,471 @@
+/* =================================================
+   admin.css
+   Styles for everything under /admin: the admin
+   sign-in screen, the sidebar shell, the dashboard
+   stat cards, the products/orders forms and tables,
+   and the per-order "send update" email panel.
+   Loaded together with style.css for shared tokens
+   (colors, fonts) — this file adds the admin-only
+   layout and components.
+================================================= */
+
+/* ---------------------------------------------
+   Admin — shared tokens
+--------------------------------------------- */
+.admin-body,
+.admin-auth-body {
+  background: #f6f5f2;
+  color: var(--color-dark-text);
+  font-family: var(--font-sans);
+}
+
+/* ---- Auth (admin login) ---- */
+.admin-auth-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.admin-auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-white);
+  border: 1px solid #e6e2da;
+  border-radius: 4px;
+  padding: 40px 32px;
+}
+
+.admin-auth-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--color-green);
+}
+
+.admin-auth-sub {
+  margin-top: 4px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+/* ---- Shell layout ---- */
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-green);
+  color: var(--color-white);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.admin-sidebar__brand {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-sidebar__nav a {
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+
+.admin-sidebar__nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+}
+
+.admin-sidebar__nav a.is-active {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--color-white);
+}
+
+.admin-sidebar__logout {
+  margin-top: auto;
+}
+
+.admin-sidebar__logout button {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  transition: background-color 0.2s var(--ease-out);
+}
+
+.admin-sidebar__logout button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-main {
+  flex: 1;
+  padding: 40px 48px;
+  overflow-x: auto;
+}
+
+.admin-h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--color-green);
+  margin-bottom: 24px;
+}
+
+.admin-h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 32px 0 12px;
+}
+
+/* ---- Stats ---- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  max-width: 700px;
+}
+
+.admin-stat-card {
+  background: var(--color-white);
+  border: 1px solid #e6e2da;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.admin-stat-card__label {
+  font-size: 13px;
+  color: #6b6b6b;
+}
+
+.admin-stat-card__value {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-green);
+  margin-top: 4px;
+}
+
+/* ---- Panel / forms ---- */
+.admin-panel {
+  background: var(--color-white);
+  border: 1px solid #e6e2da;
+  border-radius: 4px;
+  padding: 24px;
+  max-width: 720px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-form--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.admin-field--full {
+  grid-column: 1 / -1;
+}
+
+.admin-field input,
+.admin-field textarea {
+  font: inherit;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d8d3c8;
+  border-radius: 4px;
+  background: var(--color-white);
+  color: var(--color-dark-text);
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus {
+  outline: 2px solid var(--color-green);
+  outline-offset: 1px;
+}
+
+.admin-check {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: var(--color-green);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--color-green);
+  border-radius: 4px;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.admin-btn:hover {
+  opacity: 0.85;
+}
+
+.admin-btn--ghost {
+  background: transparent;
+  color: var(--color-green);
+  margin-left: 8px;
+}
+
+.admin-btn-full {
+  width: 100%;
+}
+
+.admin-link-btn {
+  background: none;
+  border: none;
+  color: #a33;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0;
+}
+
+.admin-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* ---- Table ----
+   .admin-main has overflow-x:auto (see Shell layout above),
+   so a wide table like this one scrolls sideways within the
+   page content on narrow screens instead of breaking layout. */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border: 1px solid #e6e2da;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #efece5;
+  vertical-align: top;
+}
+
+.admin-table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #6b6b6b;
+  background: #faf9f6;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table__actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-table__actions a {
+  font-size: 13px;
+  color: var(--color-green);
+  font-weight: 500;
+}
+
+.admin-inline-form {
+  display: inline-block;
+}
+
+.admin-muted {
+  color: #8a8a8a;
+  font-size: 12px;
+}
+
+/* ---- Badges / alerts ---- */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: none;
+  background: #eee;
+  color: #555;
+}
+
+.admin-badge--paid {
+  background: #e3f3e6;
+  color: #1c6b2c;
+}
+
+.admin-badge--pending {
+  background: #fdf1dc;
+  color: #96660c;
+}
+
+.admin-badge--failed,
+.admin-badge--cancelled {
+  background: #fbe4e4;
+  color: #a3312f;
+}
+
+.admin-alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.admin-alert--error {
+  background: #fbe4e4;
+  color: #a3312f;
+}
+
+.admin-alert--success {
+  background: #e3f3e6;
+  color: #1c6b2c;
+}
+
+/* ---- Order email log / send form ----
+   The "Emails" column on the Orders table: a <details>
+   element that expands into a short send-history list
+   plus a compose form, per order (see admin/orders.php). */
+.admin-mail-toggle {
+  min-width: 160px;
+}
+
+.admin-mail-toggle summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-green);
+  list-style: none;
+}
+
+.admin-mail-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-mail-toggle summary::before {
+  content: '✉ ';
+}
+
+.admin-mail-log {
+  list-style: none;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.admin-mail-log li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.admin-mail-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  min-width: 220px;
+}
+
+.admin-mail-form input,
+.admin-mail-form textarea {
+  font: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  border: 1px solid #d8d3c8;
+  border-radius: 4px;
+  background: var(--color-white);
+  color: var(--color-dark-text);
+  resize: vertical;
+}
+
+.admin-mail-form input:focus,
+.admin-mail-form textarea:focus {
+  outline: 2px solid var(--color-green);
+  outline-offset: 1px;
+}
+
+@media (max-width: 800px) {
+  .admin-shell {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap; /* brand + nav + sign-out don't fit on one line under ~460px —
+                         wrap instead of forcing the whole page to scroll sideways */
+    align-items: center;
+    gap: 12px 20px;
+    padding: 16px 20px;
+  }
+
+  .admin-sidebar__nav {
+    flex-direction: row;
+  }
+
+  .admin-sidebar__logout {
+    margin-top: 0;
+    margin-left: auto;
+    width: auto;
+  }
+
+  .admin-sidebar__logout button {
+    width: auto;
+  }
+
+  .admin-main {
+    padding: 24px;
+  }
+
+  .admin-form--grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakhoor Al Barkaah — Let the Warmth Carry Your Calm</title>
+<meta name="description" content="Bakhoor Al Barkaah — a fragrant blend of woods, resins, and oils, burned to create a rich, warm, and luxurious aroma.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===================================================
+     HERO
+     Full-viewport intro banner: centered logo + account/
+     basket nav over a background photo, heading, subtext,
+     and the "Order now" CTA (outlined, see .hero__cta).
+=================================================== -->
+<section class="hero">
+  <nav class="hero__nav">
+    <a href="/" class="hero__logo" aria-label="Bakhoor Al Barkaah home">
+      <img src="assets/icons/logo-emblem.png" alt="Bakhoor Al Barkaah">
+    </a>
+    <div class="hero__nav-actions">
+      <a href="login.html" class="hero__icon-btn" id="navAccountLink" aria-label="My account">
+        <img src="assets/icons/icon-people.png" alt="">
+      </a>
+      <a href="order.html" class="hero__icon-btn" aria-label="Order now">
+        <img src="assets/icons/icon-basket.png" alt="">
+      </a>
+    </div>
+  </nav>
+
+  <div class="hero__content">
+    <h1 class="hero__heading">
+      <span class="hero__heading-line hero__heading-line--light">Let the warmth</span>
+      <span class="hero__heading-line hero__heading-line--bold">carry your calm</span>
+    </h1>
+    <p class="hero__subtext">
+      The warmth arrives before you can name it. A familiar room, a feeling you had forgotten you missed.
+    </p>
+    <a href="order.html" class="btn btn--primary hero__cta">
+      <span>Order now</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===================================================
+     ABOUT
+     "Some moments deserve a beginning." — intro copy
+     plus a 3-column photo gallery (two tiles are still
+     placeholders awaiting real photography).
+=================================================== -->
+<section class="about">
+  <div class="about__header">
+    <h2 class="about__heading">Some moments<br>deserve a beginning.</h2>
+    <p class="about__text">
+      Bakhoor is woods and resin, warmed slowly until the smoke rises. In our homes it has always meant something is about to begin. A guest at the door. A prayer about to be made. A Friday unlike the other six days.
+    </p>
+  </div>
+
+  <div class="about__gallery">
+    <div class="about__tile about__tile--box">
+      <img src="assets/images/about/about-box.png" alt="Bakhoor Al Barkaah box">
+    </div>
+
+    <div class="about__col">
+      <div class="about__tile about__tile--placeholder" aria-hidden="true"></div>
+      <div class="about__tile about__tile--bowl">
+        <img src="assets/images/about/about-bowl.png" alt="Bakhoor resin in a stone bowl">
+      </div>
+    </div>
+
+    <div class="about__col about__col--wide">
+      <div class="about__tile about__tile--placeholder" aria-hidden="true"></div>
+      <div class="about__tile about__tile--lifestyle">
+        <img src="assets/images/about/about-lifestyle.png" alt="Bakhoor burning in a living room setting">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     OCCASIONS
+     "A scent for every occasion" — a horizontally
+     scrolling card carousel (js/main.js drives the
+     arrow button via #occasionsNext / #occasionsTrack).
+=================================================== -->
+<section class="occasions">
+  <div class="occasions__row">
+    <div class="occasions__intro">
+      <h2 class="occasions__heading">A scent for every occasion</h2>
+      <a href="#blend" class="occasions__link">
+        <span>View blend</span>
+        <img src="assets/icons/icon-arrow-right-small.svg" alt="" class="occasions__link-icon">
+      </a>
+    </div>
+
+    <!-- Cards are 305px (240px on mobile) wide and scroll-snap; the
+         arrow button below steps one card width at a time. -->
+    <ul class="occasions__track" id="occasionsTrack">
+      <li class="occasions__card">
+        <div class="occasions__card-image" aria-hidden="true"></div>
+        <div class="occasions__card-text">
+          <p class="occasions__card-title">Before Namaz</p>
+          <p class="occasions__card-desc">Light it a few minutes ahead. By the time you begin, the room has settled.</p>
+        </div>
+      </li>
+      <li class="occasions__card">
+        <div class="occasions__card-image" aria-hidden="true"></div>
+        <div class="occasions__card-text">
+          <p class="occasions__card-title">While Reading Quran</p>
+          <p class="occasions__card-desc">A soft, steady warmth that holds the space without pulling at your attention.</p>
+        </div>
+      </li>
+      <li class="occasions__card">
+        <div class="occasions__card-image" aria-hidden="true"></div>
+        <div class="occasions__card-text">
+          <p class="occasions__card-title">Jumu'ah</p>
+          <p class="occasions__card-desc">For mornings that ask for something richer. Deeper resins, for a home that fills up.</p>
+        </div>
+      </li>
+      <li class="occasions__card">
+        <div class="occasions__card-image" aria-hidden="true"></div>
+        <div class="occasions__card-text">
+          <p class="occasions__card-title">Family Gatherings</p>
+          <p class="occasions__card-desc">Floral and generous, enough for a full house. The scent people remember afterwards.</p>
+        </div>
+      </li>
+      <li class="occasions__card">
+        <div class="occasions__card-image" aria-hidden="true"></div>
+        <div class="occasions__card-text">
+          <p class="occasions__card-title">Welcoming Guests</p>
+          <p class="occasions__card-desc">An old courtesy, still worth keeping. Warmth that reaches the door ahead of you.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="occasions__nav">
+    <button type="button" class="arrow-btn" id="occasionsNext" aria-label="Scroll to next scent">
+      <img src="assets/icons/icon-arrow-right.svg" alt="">
+    </button>
+  </div>
+</section>
+
+<!-- ===================================================
+     HADITH QUOTE
+     A single centered quotation (Sahih Muslim) — purely
+     text, no image assets.
+=================================================== -->
+<section class="hadith">
+  <div class="hadith__inner">
+    <p class="hadith__mark" aria-hidden="true">&ldquo;</p>
+    <p class="hadith__text">
+      The Prophet ﷺ never turned down perfume when it was given to him, and he told his companions not to refuse a fragrant gift, because it is light to carry and easy to enjoy.
+    </p>
+    <p class="hadith__cite">— Sahih Muslim</p>
+  </div>
+</section>
+
+<!-- ===================================================
+     STORIES
+     "The stories behind the collection" — heading/intro
+     + CTA, then a 3-card grid. Only "A Quiet Sunnah" has
+     a real photo today; the other two are placeholder
+     tiles (same convention as the About gallery).
+=================================================== -->
+<section class="stories">
+  <div class="stories__row">
+    <h2 class="stories__heading">The stories behind the collection</h2>
+    <div>
+      <p class="stories__intro-text">
+        Long before it reached our shelves, this smoke travelled, was named in hadith, and passed quietly between neighbours. A few notes on where it comes from.
+      </p>
+      <a href="order.html" class="btn-dark">Order now</a>
+    </div>
+  </div>
+
+  <div class="stories__grid">
+    <div class="stories__card">
+      <div class="stories__card-image" aria-hidden="true"></div>
+      <p class="stories__card-title">The Incense Road</p>
+      <p class="stories__card-desc">Before it reached homes, aloeswood and frankincense moved by caravan out of southern Arabia, priced by weight against gold. Whole cities were built on the trade in scent.</p>
+    </div>
+    <div class="stories__card">
+      <div class="stories__card-image">
+        <img src="assets/images/stories/quiet-sunnah.png" alt="Bakhoor resin smoking gently on a prayer mat">
+      </div>
+      <p class="stories__card-title">A Quiet Sunnah</p>
+      <p class="stories__card-desc">Ibn Umar burned aloeswood alone, or camphor blended into it, and said this was the way of the Messenger of Allah ﷺ. The materials were named. The habit was kept.</p>
+    </div>
+    <div class="stories__card">
+      <div class="stories__card-image" aria-hidden="true"></div>
+      <p class="stories__card-title">Given, Rarely Bought</p>
+      <p class="stories__card-desc">Bakhoor moved between people more than through shops. A little wrapped in cloth, handed over at a door, brought back from Hajj for a neighbour. Easy to give, and no one refused it.</p>
+    </div>
+  </div>
+
+  <!-- Unlike the occasions carousel, this grid isn't a scroll track —
+       js/main.js smooth-scrolls the page down to #first-thing instead. -->
+  <div class="stories__nav">
+    <button type="button" class="arrow-btn" id="storiesNext" aria-label="Scroll to next story">
+      <img src="assets/icons/icon-arrow-right.svg" alt="">
+    </button>
+  </div>
+</section>
+
+<!-- ===================================================
+     FEATURE — "The first thing before everything else"
+     Stacked layout: heading + text, then one full-width
+     image. See .feature--stacked in style.css.
+=================================================== -->
+<section class="feature feature--stacked" id="first-thing">
+  <div class="feature__inner">
+    <h2 class="feature__heading">The first thing before everything else</h2>
+    <p class="feature__text">
+      A single cone, a little heat, and the smoke does the rest. It settles into the curtains, the cushions, the sleeves of whatever you're wearing, and stays there long after the coal has gone cold.
+    </p>
+    <div class="feature__image">
+      <img src="assets/images/sections/first-thing.png" alt="Bakhoor Al Barkaah box beside a smoking resin bowl on stone steps">
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     FEATURE — "Find the stillness you've been missing"
+     Split layout: image and text side by side. See
+     .feature--split in style.css.
+=================================================== -->
+<section class="feature feature--split">
+  <div class="feature__inner">
+    <div class="feature__image">
+      <img src="assets/images/sections/product-stone-steps.png" alt="Bakhoor Al Barkaah box beside a smoking resin bowl">
+    </div>
+    <div class="feature__content">
+      <h2 class="feature__heading">Find the stillness you've been missing</h2>
+      <p class="feature__text">
+        Light it and sit for a moment. The scent fills the room slowly, the noise drops away, and by the time you stand up you are somewhere calmer than you were.
+      </p>
+      <a href="order.html" class="btn-dark feature__cta">Order now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     FOOTER
+     Brand (logo/wordmark/social) + two policy-link
+     columns. Social/policy links are placeholders (#)
+     until real destinations exist.
+=================================================== -->
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="assets/icons/logo-emblem.png" alt="Bakhoor Al Barkaah">
+      <p class="site-footer__wordmark">Bakhoor-Al-Barkaah</p>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8.5h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5l.5-3.5h-3V9c0-.3.2-.5.5-.5z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="currentColor"/><path d="M11.5 17v-4.5c0-1.4 1-2.3 2.3-2.3s2.2.9 2.2 2.3V17"/></svg>
+        </a>
+        <a href="#" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6.5l9 6.5 9-6.5"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="site-footer__links">
+      <div class="site-footer__col">
+        <a href="#">Contact Us</a>
+        <a href="#">About Us</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Refund &amp; Return Policy</a>
+      </div>
+      <div class="site-footer__col">
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Refund &amp; Return Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Now — Bakhoor Al Barkaah</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+<div class="page-shell">
+  <!-- Shared green nav bar (see .site-nav in pages.css) — same
+       markup as login.html/signup.html so the chrome matches. -->
+  <nav class="site-nav">
+    <a href="index.html" class="site-nav__logo" aria-label="Bakhoor Al Barkaah home">
+      <img src="assets/icons/logo-emblem.png" alt="Bakhoor Al Barkaah">
+    </a>
+    <div class="site-nav__actions">
+      <a href="login.html" id="navAccountLink" aria-label="My account">
+        <img src="assets/icons/icon-people-gold.svg" alt="">
+      </a>
+      <a href="order.html" aria-label="Order now">
+        <img src="assets/icons/icon-basket-gold.svg" alt="">
+      </a>
+    </div>
+  </nav>
+
+  <main class="order-page">
+    <!-- Product summary — filled in by js/order.js from api/product.php,
+         so the markup below starts empty/"Loading…" on first paint. -->
+    <div class="order-summary">
+      <div class="order-summary__image">
+        <img id="productImage" src="" alt="">
+      </div>
+      <h1 class="order-summary__name" id="productName">Loading…</h1>
+      <p class="order-summary__desc" id="productDesc"></p>
+      <p class="order-summary__price" id="productPrice"></p>
+
+      <div class="qty-stepper">
+        <button type="button" id="qtyMinus" aria-label="Decrease quantity">−</button>
+        <input type="text" id="qtyValue" value="1" inputmode="numeric" aria-label="Quantity">
+        <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
+      </div>
+      <p class="stock-notice" id="stockNotice" style="display:none;"></p>
+
+      <p class="order-summary__total">Total: <strong id="orderTotal">—</strong></p>
+    </div>
+
+    <!-- Guest checkout only — no sign-in/create-account step. Submitting
+         this form calls api/checkout.php then api/verify-payment.php,
+         which also triggers the order-confirmation email. -->
+    <div class="order-form-card">
+      <!-- Shown only when DEMO_MODE is on in config/config.php -->
+      <p class="demo-banner" id="demoBanner" style="display:none;">
+        Payment is running in demo mode — no real charge will be made.
+      </p>
+
+      <p class="form-error" id="formError"></p>
+
+      <form id="checkoutForm">
+        <h2>Shipping Details</h2>
+        <label class="field">
+          <span>Full name</span>
+          <input type="text" name="name" required autocomplete="name">
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+          <label class="field">
+            <span>Phone</span>
+            <input type="tel" name="phone" required autocomplete="tel">
+          </label>
+        </div>
+        <label class="field">
+          <span>Address</span>
+          <input type="text" name="address" required autocomplete="street-address">
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>City</span>
+            <input type="text" name="city" required autocomplete="address-level2">
+          </label>
+          <label class="field">
+            <span>State</span>
+            <input type="text" name="state" required autocomplete="address-level1">
+          </label>
+        </div>
+        <label class="field">
+          <span>Pincode</span>
+          <input type="text" name="pincode" required autocomplete="postal-code" style="max-width: 160px;">
+        </label>
+
+        <p class="field-hint" style="margin-bottom:18px;">We'll email order updates to the address above.</p>
+
+        <button type="submit" class="btn-solid" id="payButton">Order now</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- Fake "Razorpay" payment sheet, only ever shown in demo mode
+     (see openDemoModal() in js/order.js) so checkout can be tested
+     end-to-end without real payment gateway keys configured. -->
+<div class="demo-modal-backdrop" id="demoModalBackdrop" style="display:none;">
+  <div class="demo-modal" id="demoModal">
+    <div class="demo-modal__spinner"></div>
+    <h3>Demo payment</h3>
+    <p>This simulates Razorpay checkout — no card details required.</p>
+    <p class="demo-modal__amount" id="demoAmount">₹0</p>
+    <div class="demo-modal__actions">
+      <button type="button" class="btn-solid" id="demoPaySuccess">Pay ₹<span id="demoPayAmount">0</span></button>
+      <button type="button" class="btn-solid" id="demoCancel" style="background:transparent;color:#6b6b6b;border-color:#d8d3c8;margin-top:10px;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="js/api.js"></script>
+<script src="js/order.js"></script>
+</body>
+</html>
