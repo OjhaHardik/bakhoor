@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS order_emails (
 INSERT INTO products (name, slug, description, price_paise, image_path, stock)
 SELECT 'Bakhoor Al Barkaah', 'bakhoor-al-barkaah',
   'A fragrant blend of woods, resins, and oils, burned to create a rich, warm, and luxurious aroma.',
-  49900, 'assets/images/about/about-box.png', 100
+  49900, 'assets-optimized/images/about/about-2.webp', 100
 WHERE NOT EXISTS (SELECT 1 FROM products WHERE slug = 'bakhoor-al-barkaah');
 
 -- Seed admin user — email: admin@bakhooralbarkaah.com / password: admin123
