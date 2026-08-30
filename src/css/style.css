@@ -89,9 +89,9 @@ button {
   overflow: hidden;
   color: var(--color-white);
   background-image:
-    url('../assets/images/hero/hero-gradient-fade.png'),
-    url('../assets/images/hero/hero-gradient-vignette.png'),
-    url('../assets/images/hero/hero-background.png');
+    url('../assets-optimized/images/hero/hero-gradient-fade.webp'),
+    url('../assets-optimized/images/hero/hero-gradient-vignette.webp'),
+    url('../assets-optimized/images/hero/hero-background.webp');
   background-size: cover, cover, cover;
   /* Anchored bottom-right — that's where the product box sits in the
      photo, so on unusually tall/narrow desktop windows "cover" crops
@@ -304,9 +304,9 @@ button {
      that gets cropped — cover always crops from the top/left instead. */
   .hero {
     background-image:
-      url('../assets/images/hero/hero-gradient-fade-tablet.png'),
-      url('../assets/images/hero/hero-gradient-vignette-tablet.png'),
-      url('../assets/images/hero/hero-background-tablet.png');
+      url('../assets-optimized/images/hero/hero-gradient-fade-tablet.webp'),
+      url('../assets-optimized/images/hero/hero-gradient-vignette-tablet.webp'),
+      url('../assets-optimized/images/hero/hero-background-tablet.webp');
     background-size: cover, cover, cover;
     background-position: right bottom, right bottom, right bottom;
   }
@@ -347,9 +347,9 @@ button {
      built for narrower screens. Same cover/bottom-right anchoring. */
   .hero {
     background-image:
-      url('../assets/images/hero/hero-gradient-fade-mobile.png'),
-      url('../assets/images/hero/hero-gradient-vignette-mobile.png'),
-      url('../assets/images/hero/hero-background-mobile.png');
+      url('../assets-optimized/images/hero/hero-gradient-fade-mobile.webp'),
+      url('../assets-optimized/images/hero/hero-gradient-vignette-mobile.webp'),
+      url('../assets-optimized/images/hero/hero-background-mobile.webp');
   }
 }
 
