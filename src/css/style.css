@@ -156,8 +156,8 @@ button {
 }
 
 .hero__icon-btn img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   transition: transform 0.3s var(--ease-out);
 }
 
@@ -222,10 +222,13 @@ button {
 }
 
 .hero__cta {
-  /* Extra ring around the button only — colors are untouched */
-  outline: 1px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 5px;
   animation: hero-rise 0.9s var(--ease-out) 0.24s both;
+}
+
+.hero__cta:hover,
+.hero__cta:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: -8px;
 }
 
 @keyframes hero-rise {
@@ -269,9 +272,6 @@ button {
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  background-color: var(--color-gold);
-  border-color: var(--color-gold);
-  color: var(--color-white);
   transform: translateY(-3px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
