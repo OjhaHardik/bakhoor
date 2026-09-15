@@ -40,12 +40,15 @@ $totalPaise = (int)$product['price_paise'] * $quantity;
 
 $pdo->beginTransaction();
 
+$invoiceNumber = next_invoice_number($pdo);
+
 $stmt = $pdo->prepare(
     'INSERT INTO orders
-        (user_id, guest_name, guest_email, guest_phone, shipping_address, shipping_city, shipping_state, shipping_pincode, total_paise, status, is_demo)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, "pending", ?)'
+        (invoice_number, user_id, guest_name, guest_email, guest_phone, shipping_address, shipping_city, shipping_state, shipping_pincode, subtotal_paise, discount_paise, total_paise, status, is_demo)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, "pending", ?)'
 );
 $stmt->execute([
+    $invoiceNumber,
     $user['id'] ?? null,
     $shipping['name'],
     $shipping['email'],
@@ -54,6 +57,7 @@ $stmt->execute([
     $shipping['city'],
     $shipping['state'],
     $shipping['pincode'],
+    $totalPaise,
     $totalPaise,
     DEMO_MODE ? 1 : 0,
 ]);
@@ -72,6 +76,7 @@ if (DEMO_MODE) {
         'ok' => true,
         'demoMode' => true,
         'orderId' => $orderId,
+        'invoiceNumber' => $invoiceNumber,
         'razorpayOrderId' => $razorpayOrderId,
         'amountPaise' => $totalPaise,
         'productName' => $product['name'],
@@ -109,6 +114,7 @@ json_response([
     'ok' => true,
     'demoMode' => false,
     'orderId' => $orderId,
+    'invoiceNumber' => $invoiceNumber,
     'razorpayOrderId' => $razorpayOrder['id'],
     'razorpayKeyId' => RAZORPAY_KEY_ID,
     'amountPaise' => $totalPaise,

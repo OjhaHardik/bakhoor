@@ -432,6 +432,189 @@
   outline-offset: 1px;
 }
 
+/* ---- Invoice / shipping label (admin/invoice.php) ----
+   On screen both documents show stacked in the normal admin
+   layout. Printing is triggered via printDoc('invoice'|'label')
+   in invoice.php, which adds body.printing-invoice/-label just
+   before window.print() — the @media print rules below use that
+   to print only the chosen document, full-bleed, on its own page. */
+.invoice-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.print-doc {
+  background: var(--color-white);
+  border: 1px solid #e6e2da;
+  border-radius: 4px;
+  padding: 32px;
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+
+.print-doc--label {
+  max-width: 380px;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-green);
+  margin-bottom: 20px;
+}
+
+.invoice-brand {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--color-green);
+}
+
+.invoice-brand-sub {
+  font-size: 13px;
+  color: #6b6b6b;
+}
+
+.invoice-header-meta {
+  font-size: 13px;
+  text-align: right;
+}
+
+.invoice-parties {
+  margin-bottom: 24px;
+}
+
+.invoice-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #6b6b6b;
+  margin-bottom: 6px;
+}
+
+.invoice-parties p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.invoice-table th,
+.invoice-table td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #efece5;
+}
+
+.invoice-table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #6b6b6b;
+}
+
+.invoice-table td:not(:first-child),
+.invoice-table th:not(:first-child) {
+  text-align: right;
+}
+
+.invoice-totals {
+  max-width: 280px;
+  margin-left: auto;
+}
+
+.invoice-totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.invoice-totals-row--final {
+  border-top: 1px solid #d8d3c8;
+  margin-top: 4px;
+  padding-top: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-green);
+}
+
+.invoice-footer {
+  margin-top: 28px;
+  font-size: 12px;
+  color: #8a8a8a;
+  text-align: center;
+}
+
+/* ---- Shipping label ---- */
+.label-from {
+  font-size: 11px;
+  color: #8a8a8a;
+  margin-bottom: 16px;
+}
+
+.label-ship-to {
+  border: 2px solid var(--color-dark-text);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.label-heading {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.label-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.label-ship-to p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.label-meta {
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+@media print {
+  .no-print,
+  .admin-sidebar,
+  .invoice-actions {
+    display: none !important;
+  }
+
+  .admin-main {
+    padding: 0;
+  }
+
+  .print-doc {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 auto;
+  }
+
+  body.printing-invoice #label-doc,
+  body.printing-label #invoice-doc {
+    display: none !important;
+  }
+}
+
 @media (max-width: 800px) {
   .admin-shell {
     flex-direction: column;

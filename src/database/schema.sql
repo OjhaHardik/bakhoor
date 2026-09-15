@@ -49,6 +49,58 @@ CREATE TABLE IF NOT EXISTS orders (
   CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
+-- Migration (safe to re-run): add invoice breakdown columns to an
+-- already-existing orders table. Fresh installs get them via the
+-- ALTER below too, right after the CREATE TABLE above runs.
+SET @col_exists = (
+  SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+  WHERE table_schema = DATABASE() AND table_name = 'orders' AND column_name = 'subtotal_paise'
+);
+SET @sql = IF(@col_exists = 0,
+  'ALTER TABLE orders ADD COLUMN subtotal_paise INT UNSIGNED NOT NULL DEFAULT 0 AFTER shipping_pincode',
+  'SELECT 1'
+);
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @col_exists = (
+  SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+  WHERE table_schema = DATABASE() AND table_name = 'orders' AND column_name = 'discount_paise'
+);
+SET @sql = IF(@col_exists = 0,
+  'ALTER TABLE orders ADD COLUMN discount_paise INT UNSIGNED NOT NULL DEFAULT 0 AFTER subtotal_paise',
+  'SELECT 1'
+);
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- Backfill existing rows: with no discount system yet, subtotal == total.
+UPDATE orders SET subtotal_paise = total_paise WHERE subtotal_paise = 0;
+
+SET @col_exists = (
+  SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+  WHERE table_schema = DATABASE() AND table_name = 'orders' AND column_name = 'invoice_number'
+);
+SET @sql = IF(@col_exists = 0,
+  'ALTER TABLE orders ADD COLUMN invoice_number VARCHAR(20) NULL UNIQUE AFTER id',
+  'SELECT 1'
+);
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- Backfill existing rows with a sequential BAB<YY><NNN> number, per
+-- calendar year of created_at, ordered by order id. New orders get
+-- theirs assigned by next_invoice_number() in includes/helpers.php.
+SET @seq = 0;
+SET @yr = '';
+UPDATE orders o
+JOIN (
+  SELECT id,
+    @seq := IF(@yr = DATE_FORMAT(created_at, '%y'), @seq + 1, 1) AS seq_no,
+    @yr := DATE_FORMAT(created_at, '%y') AS yr
+  FROM orders
+  ORDER BY created_at, id
+) ranked ON ranked.id = o.id
+SET o.invoice_number = CONCAT('BAB', ranked.yr, LPAD(ranked.seq_no, 3, '0'))
+WHERE o.invoice_number IS NULL;
+
 CREATE TABLE IF NOT EXISTS order_items (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   order_id INT UNSIGNED NOT NULL,

@@ -4,6 +4,17 @@ src/config/config.php
 # Photoshop working files — large source files, not needed to run/deploy the site
 *.psd
 
+# Design source files (raw photos/exports) — not used by the live site, kept locally only
+/design-assets/
+
+# Local dev tooling config (points at a local-only MCP server, machine-specific)
+.mcp.json
+
+# Deployment artifacts generated locally for uploading to hosting — not source
+/deploy/
+/bakhoor-live-upload.zip
+/database-for-hostinger.sql
+
 # OS junk
 Thumbs.db
 .DS_Store
