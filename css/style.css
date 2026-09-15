@@ -112,7 +112,7 @@ button {
   align-items: center;
   justify-content: flex-end;
   height: 80px;
-  padding: 0 48px;
+  padding: 0 80px;
 }
 
 .hero__logo {
@@ -125,13 +125,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s var(--ease-out), filter 0.4s var(--ease-out);
-}
-
-.hero__logo:hover,
-.hero__logo:focus-visible {
-  transform: translate(-50%, -50%) scale(1.08) rotate(4deg);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
 }
 
 .hero__logo img {
@@ -158,22 +151,11 @@ button {
 .hero__icon-btn img {
   width: 32px;
   height: 32px;
-  transition: transform 0.3s var(--ease-out);
 }
 
 .hero__icon-btn:hover,
 .hero__icon-btn:focus-visible {
   background-color: rgba(255, 255, 255, 0.14);
-  transform: translateY(-1px);
-}
-
-.hero__icon-btn:hover img,
-.hero__icon-btn:focus-visible img {
-  transform: scale(1.1);
-}
-
-.hero__icon-btn:active {
-  transform: translateY(0) scale(0.95);
 }
 
 /* ---- Content ---- */
@@ -183,7 +165,7 @@ button {
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  padding: 265px 72px 0;
+  padding: 265px 80px 0;
 }
 
 .hero__heading {
@@ -223,12 +205,6 @@ button {
 
 .hero__cta {
   animation: hero-rise 0.9s var(--ease-out) 0.24s both;
-}
-
-.hero__cta:hover,
-.hero__cta:focus-visible {
-  outline: 1px solid var(--color-gold);
-  outline-offset: -8px;
 }
 
 @keyframes hero-rise {
@@ -326,11 +302,6 @@ button {
     position: static;
     transform: none;
   }
-
-  .hero__logo:hover,
-  .hero__logo:focus-visible {
-    transform: scale(1.08) rotate(4deg);
-  }
 }
 
 @media (max-width: 640px) {
@@ -369,7 +340,7 @@ button {
 --------------------------------------------- */
 .about {
   background: var(--color-white);
-  padding: 72px 79px;
+  padding: 72px 80px;
 }
 
 .about__header {
@@ -377,8 +348,6 @@ button {
   align-items: flex-start;
   justify-content: space-between;
   gap: 48px;
-  max-width: 1281px;
-  margin: 0 auto;
 }
 
 .about__heading {
@@ -408,8 +377,7 @@ button {
   display: grid;
   grid-template-columns: 523fr 305fr 413fr;
   gap: 20px;
-  max-width: 1281px;
-  margin: 120px auto 0;
+  margin-top: 120px;
 }
 
 .about__col {
@@ -485,22 +453,35 @@ button {
   }
 
   .about__gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
     margin-top: 40px;
   }
 
   .about__col,
   .about__col--wide {
-    display: contents;
+    gap: 12px;
   }
 
   .about__tile--box {
+    grid-column: 1 / -1;
     aspect-ratio: 4 / 3;
   }
 
-  .about__col .about__tile--placeholder,
+  .about__col .about__tile--placeholder {
+    aspect-ratio: 3 / 4;
+  }
+
+  .about__tile--bowl {
+    aspect-ratio: 3 / 2;
+  }
+
   .about__col--wide .about__tile--placeholder {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;
+  }
+
+  .about__tile--lifestyle {
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -509,7 +490,7 @@ button {
 --------------------------------------------- */
 .occasions {
   background: var(--color-white);
-  padding: 72px 79px;
+  padding: 72px 80px;
 }
 
 .occasions__row {
@@ -535,27 +516,6 @@ button {
   color: var(--color-green);
 }
 
-.occasions__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 16px;
-  color: var(--color-green);
-}
-
-.occasions__link-icon {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.3s var(--ease-out);
-}
-
-.occasions__link:hover .occasions__link-icon,
-.occasions__link:focus-visible .occasions__link-icon {
-  transform: translateX(4px);
-}
-
 /* ---- Horizontally-scrolling card carousel ----
    width:100% + min-width:0 are required: as a flex item
    this element would otherwise grow to fit every card
@@ -571,10 +531,18 @@ button {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
 }
 
 .occasions__track::-webkit-scrollbar {
   display: none;
+}
+
+/* Fade hints there's more to scroll; drop it once the last card is fully in view. */
+.occasions__track.is-at-end {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .occasions__card {
@@ -727,12 +695,7 @@ button {
 .btn-dark:focus-visible {
   background-color: var(--color-gold);
   border-color: var(--color-gold);
-  transform: translateY(-3px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-}
-
-.btn-dark:active {
-  transform: translateY(-1px);
 }
 
 /* ---------------------------------------------
@@ -740,26 +703,28 @@ button {
 --------------------------------------------- */
 .hadith {
   background: var(--color-white);
-  padding: 96px 79px;
+  padding: 96px 80px;
 }
 
 .hadith__inner {
+  position: relative;
   max-width: 730px;
   margin: 0 auto;
 }
 
 .hadith__mark {
-  font-family: var(--font-serif);
-  font-size: 56px;
-  line-height: 1;
-  color: var(--color-dark-text);
+  position: absolute;
+  top: -17px;
+  left: -54px;
+  width: 35px;
+  height: 33px;
 }
 
 .hadith__text {
-  margin-top: 8px;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 500;
   line-height: 1.4;
-  color: var(--color-dark-text);
+  color: var(--color-green);
 }
 
 .hadith__cite {
@@ -768,11 +733,11 @@ button {
   justify-content: center;
   gap: 8px;
   margin-top: 32px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.12px;
   text-transform: uppercase;
-  color: var(--color-body-text);
+  color: var(--color-green);
 }
 
 .hadith__cite img {
@@ -785,7 +750,7 @@ button {
 --------------------------------------------- */
 .stories {
   background: var(--color-white);
-  padding: 72px 79px;
+  padding: 72px 80px;
 }
 
 .stories__row {
@@ -793,8 +758,7 @@ button {
   align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
-  max-width: 1282px;
-  margin: 0 auto 56px;
+  margin-bottom: 56px;
 }
 
 .stories__heading {
@@ -821,12 +785,10 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 1282px;
-  margin: 0 auto;
 }
 
 .stories__card-image {
-  aspect-ratio: 667 / 522;
+  aspect-ratio: 480 / 270;
   overflow: hidden;
   background: var(--color-placeholder);
 }
@@ -853,13 +815,6 @@ button {
   color: var(--color-body-text);
 }
 
-.stories__nav {
-  display: flex;
-  justify-content: flex-end;
-  max-width: 1282px;
-  margin: 40px auto 0;
-}
-
 @media (max-width: 1024px) {
   .hadith,
   .stories {
@@ -884,11 +839,14 @@ button {
   }
 
   .hadith__mark {
-    font-size: 40px;
+    position: static;
+    width: 28px;
+    height: 26px;
+    margin: 0 auto 8px;
   }
 
   .hadith__text {
-    font-size: 17px;
+    font-size: 20px;
   }
 
   .stories__grid {
@@ -905,12 +863,7 @@ button {
 --------------------------------------------- */
 .feature {
   background: var(--color-white);
-  padding: 72px 79px;
-}
-
-.feature__inner {
-  max-width: 1282px;
-  margin: 0 auto;
+  padding: 72px 80px;
 }
 
 .feature__heading {
@@ -933,7 +886,7 @@ button {
    Heading + text on top, one full-width image below. */
 .feature--stacked .feature__image {
   margin-top: 40px;
-  aspect-ratio: 1285 / 660;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--color-placeholder);
 }
@@ -1019,7 +972,7 @@ button {
 .site-footer {
   background: var(--color-green);
   color: var(--color-gold-light);
-  padding: 64px 79px;
+  padding: 64px 80px;
 }
 
 .site-footer__top {
@@ -1028,8 +981,6 @@ button {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 48px;
-  max-width: 1282px;
-  margin: 0 auto;
 }
 
 /* ---- Brand block: logo, wordmark, social icons ---- */

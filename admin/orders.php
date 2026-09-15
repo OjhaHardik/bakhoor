@@ -65,7 +65,7 @@ $emailsStmt = $pdo->prepare('SELECT subject, status, created_at FROM order_email
 
 <table class="admin-table admin-table--orders">
   <thead>
-    <tr><th>ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Emails</th></tr>
+    <tr><th>ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Emails</th><th>Invoice</th></tr>
   </thead>
   <tbody>
     <?php foreach ($orders as $order): ?>
@@ -78,7 +78,10 @@ $emailsStmt = $pdo->prepare('SELECT subject, status, created_at FROM order_email
       $customerEmail = $order['account_email'] ?? $order['guest_email'];
       ?>
       <tr>
-        <td>#<?= (int)$order['id'] ?><?= $order['is_demo'] ? ' <span class="admin-badge">demo</span>' : '' ?></td>
+        <td>
+          <?= htmlspecialchars($order['invoice_number']) ?><?= $order['is_demo'] ? ' <span class="admin-badge">demo</span>' : '' ?><br>
+          <span class="admin-muted">order #<?= (int)$order['id'] ?></span>
+        </td>
         <td>
           <?= htmlspecialchars($customerName) ?><br>
           <span class="admin-muted"><?= htmlspecialchars($customerEmail) ?></span>
@@ -133,10 +136,11 @@ $emailsStmt = $pdo->prepare('SELECT subject, status, created_at FROM order_email
             </form>
           </details>
         </td>
+        <td><a href="invoice.php?id=<?= (int)$order['id'] ?>">View / Print</a></td>
       </tr>
     <?php endforeach; ?>
     <?php if (!$orders): ?>
-      <tr><td colspan="7">No orders yet.</td></tr>
+      <tr><td colspan="8">No orders yet.</td></tr>
     <?php endif; ?>
   </tbody>
 </table>

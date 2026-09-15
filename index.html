@@ -23,14 +23,14 @@
 <section class="hero">
   <nav class="hero__nav">
     <a href="/" class="hero__logo" aria-label="Bakhoor Al Barkaah home">
-      <img src="assets/icons/logo-emblem.png" alt="Bakhoor Al Barkaah">
+      <img src="assets/icons/logo-emb.svg" alt="Bakhoor Al Barkaah">
     </a>
     <div class="hero__nav-actions">
       <a href="login.html" class="hero__icon-btn" id="navAccountLink" aria-label="My account">
-        <img src="assets/icons/icon-people.png" alt="">
+        <img src="assets/icons/icon-people.svg" alt="">
       </a>
       <a href="order.html" class="hero__icon-btn" aria-label="Order now">
-        <img src="assets/icons/icon-basket.png" alt="">
+        <img src="assets/icons/icon-basket.svg" alt="">
       </a>
     </div>
   </nav>
@@ -102,10 +102,7 @@
   <div class="occasions__row">
     <div class="occasions__intro">
       <h2 class="occasions__heading">A scent for every occasion</h2>
-      <a href="#blend" class="occasions__link">
-        <span>View blend</span>
-        <img src="assets/icons/icon-arrow-right-small.svg" alt="" class="occasions__link-icon">
-      </a>
+      <a href="order.html" class="btn-dark">Order now</a>
     </div>
 
     <!-- Cards are 305px (240px on mobile) wide and scroll-snap; the
@@ -170,16 +167,18 @@
 
 <!-- ===================================================
      HADITH QUOTE
-     A single centered quotation (Sahih Muslim) — purely
-     text, no image assets.
+     A single centered quotation (Sahih Muslim).
 =================================================== -->
 <section class="hadith">
   <div class="hadith__inner">
-    <p class="hadith__mark" aria-hidden="true">&ldquo;</p>
+    <img src="assets/icons/semi-colon.svg" alt="" class="hadith__mark" aria-hidden="true">
     <p class="hadith__text">
       The Prophet ﷺ never turned down perfume when it was given to him, and he told his companions not to refuse a fragrant gift, because it is light to carry and easy to enjoy.
     </p>
-    <p class="hadith__cite">— Sahih Muslim</p>
+    <p class="hadith__cite">
+      <img src="assets/icons/icon-arrow-right-small.svg" alt="" width="12" height="12">
+      Sahih Muslim
+    </p>
   </div>
 </section>
 
@@ -225,13 +224,6 @@
     </div>
   </div>
 
-  <!-- Unlike the occasions carousel, this grid isn't a scroll track —
-       js/main.js smooth-scrolls the page down to #first-thing instead. -->
-  <div class="stories__nav">
-    <button type="button" class="arrow-btn" id="storiesNext" aria-label="Scroll to next story">
-      <img src="assets/icons/icon-arrow-right.svg" alt="">
-    </button>
-  </div>
 </section>
 
 <!-- ===================================================
@@ -281,7 +273,7 @@
 <footer class="site-footer">
   <div class="site-footer__top">
     <div class="site-footer__brand">
-      <img src="assets/icons/logo-emblem.png" alt="Bakhoor Al Barkaah">
+      <img src="assets/icons/logo-emb-gold.svg" alt="Bakhoor Al Barkaah">
       <p class="site-footer__wordmark">Bakhoor-Al-Barkaah</p>
       <div class="site-footer__social">
         <a href="#" aria-label="Instagram">
@@ -301,16 +293,14 @@
 
     <div class="site-footer__links">
       <div class="site-footer__col">
-        <a href="#">Contact Us</a>
-        <a href="#">About Us</a>
-        <a href="#">Cookie Policy</a>
-        <a href="#">Refund &amp; Return Policy</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="about.html">About Us</a>
+        <a href="cookie-policy.html">Cookie Policy</a>
+        <a href="refund-policy.html">Refund &amp; Return Policy</a>
       </div>
       <div class="site-footer__col">
-        <a href="#">Terms &amp; Conditions</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Cookie Policy</a>
-        <a href="#">Refund &amp; Return Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
       </div>
     </div>
   </div>

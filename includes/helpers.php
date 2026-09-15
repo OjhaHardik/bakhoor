@@ -37,3 +37,22 @@ function csrf_verify(?string $token): bool
 {
     return is_string($token) && !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
+
+// Next sequential invoice number for the current year, e.g. BAB26001,
+// BAB26002 ... resetting to 001 each new year. Call inside the same
+// transaction as the order insert so the row lock (FOR UPDATE) covers
+// the read-then-write.
+function next_invoice_number(PDO $pdo): string
+{
+    $prefix = 'BAB' . date('y');
+
+    $stmt = $pdo->prepare(
+        'SELECT invoice_number FROM orders WHERE invoice_number LIKE ? ORDER BY invoice_number DESC LIMIT 1 FOR UPDATE'
+    );
+    $stmt->execute([$prefix . '%']);
+    $last = $stmt->fetchColumn();
+
+    $seq = $last ? ((int)substr((string)$last, strlen($prefix)) + 1) : 1;
+
+    return $prefix . str_pad((string)$seq, 3, '0', STR_PAD_LEFT);
+}
