@@ -31,3 +31,12 @@ define('MAIL_DEMO_MODE', SMTP_HOST === '');
 
 define('SITE_NAME', 'Bakhoor Al Barkaah');
 define('CURRENCY', 'INR');
+
+// Printed on the admin invoice (admin/invoice.php). Update the address
+// lines with your real dispatch address before going live. GSTIN stays
+// blank until registered — the invoice only shows a GST line when it's set.
+define('COMPANY_ADDRESS_LINE1', 'Hyderabad, Telangana');
+define('COMPANY_ADDRESS_LINE2', 'India');
+define('COMPANY_PHONE', '+91 98765 43210');
+define('COMPANY_EMAIL', 'hello@bakhooralbarkaah.com');
+define('COMPANY_GSTIN', '');
