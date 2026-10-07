@@ -8,6 +8,15 @@
 $pageTitle = 'Invoice';
 require_once __DIR__ . '/includes/header.php';
 
+// Fallback defaults — config.php is per-environment and gitignored, so an
+// older deployed copy may not define these yet. Guards against a fatal
+// "undefined constant" error until it's updated with real values.
+if (!defined('COMPANY_ADDRESS_LINE1')) define('COMPANY_ADDRESS_LINE1', 'Hyderabad, Telangana');
+if (!defined('COMPANY_ADDRESS_LINE2')) define('COMPANY_ADDRESS_LINE2', 'India');
+if (!defined('COMPANY_PHONE')) define('COMPANY_PHONE', '');
+if (!defined('COMPANY_EMAIL')) define('COMPANY_EMAIL', 'hello@bakhooralbarkaah.com');
+if (!defined('COMPANY_GSTIN')) define('COMPANY_GSTIN', '');
+
 $pdo = db();
 
 $orderId = (int)($_GET['id'] ?? 0);
