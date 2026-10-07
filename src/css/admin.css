@@ -449,74 +449,113 @@
   background: var(--color-white);
   border: 1px solid #e6e2da;
   border-radius: 4px;
-  padding: 32px;
-  max-width: 640px;
   margin-bottom: 24px;
+}
+
+/* Matches the 4in x 6in stock the invoice/label is meant to print on.
+   96px/in on screen so the admin can preview the real proportions
+   before printing; @media print below switches to physical inches. */
+.print-doc--invoice {
+  width: 384px;
+  min-height: 576px;
+  padding: 18px;
+  font-size: 11px;
 }
 
 .print-doc--label {
   max-width: 380px;
+  padding: 32px;
 }
 
-.invoice-header {
+.invoice-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 16px;
+  padding-bottom: 10px;
   border-bottom: 2px solid var(--color-green);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.invoice-doc-type {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+.invoice-doc-sub {
+  font-size: 10px;
+  color: #6b6b6b;
 }
 
 .invoice-brand {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 16px;
   color: var(--color-green);
-}
-
-.invoice-brand-sub {
-  font-size: 13px;
-  color: #6b6b6b;
-}
-
-.invoice-header-meta {
-  font-size: 13px;
   text-align: right;
 }
 
+.invoice-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.invoice-meta-row > div {
+  flex: 1;
+}
+
+.invoice-meta-row p:last-child {
+  font-size: 11px;
+  word-break: break-word;
+}
+
 .invoice-parties {
-  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.invoice-parties > div {
+  flex: 1;
+  min-width: 0;
 }
 
 .invoice-label {
-  font-size: 12px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #6b6b6b;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .invoice-parties p {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.invoice-party-name {
+  font-weight: 700;
 }
 
 .invoice-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 10.5px;
+  margin-bottom: 12px;
 }
 
 .invoice-table th,
 .invoice-table td {
   text-align: left;
-  padding: 10px 8px;
+  padding: 6px 4px;
   border-bottom: 1px solid #efece5;
 }
 
 .invoice-table th {
-  font-size: 12px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #6b6b6b;
@@ -528,31 +567,40 @@
 }
 
 .invoice-totals {
-  max-width: 280px;
+  max-width: 200px;
   margin-left: auto;
 }
 
 .invoice-totals-row {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
-  font-size: 14px;
+  padding: 4px 0;
+  font-size: 10.5px;
 }
 
 .invoice-totals-row--final {
   border-top: 1px solid #d8d3c8;
   margin-top: 4px;
-  padding-top: 10px;
+  padding-top: 6px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   color: var(--color-green);
 }
 
+.invoice-words {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid #efece5;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
 .invoice-footer {
-  margin-top: 28px;
-  font-size: 12px;
+  margin-top: 12px;
+  font-size: 8.5px;
   color: #8a8a8a;
   text-align: center;
+  line-height: 1.4;
 }
 
 /* ---- Shipping label ---- */
@@ -592,6 +640,14 @@
 }
 
 @media print {
+  /* Both the invoice and the shipping label are designed for 4x6in
+     stock (standard courier label/slip size) — see printDoc() in
+     invoice.php, which prints whichever one is visible. */
+  @page {
+    size: 4in 6in;
+    margin: 3mm;
+  }
+
   .no-print,
   .admin-sidebar,
   .invoice-actions {
@@ -607,6 +663,18 @@
     border-radius: 0;
     box-shadow: none;
     margin: 0 auto;
+  }
+
+  .print-doc--invoice {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .invoice-table tr,
+  .invoice-totals,
+  .invoice-words {
+    page-break-inside: avoid;
   }
 
   body.printing-invoice #label-doc,

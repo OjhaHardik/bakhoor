@@ -43,25 +43,48 @@ $customerPhone = $order['account_phone'] ?? $order['guest_phone'];
   <a href="orders.php" class="admin-btn admin-btn--ghost">&larr; Back to Orders</a>
 </div>
 
-<!-- ============ INVOICE ============ -->
+<!-- ============ INVOICE (4in x 6in) ============ -->
 <div id="invoice-doc" class="print-doc print-doc--invoice">
-  <div class="invoice-header">
+  <div class="invoice-top">
     <div>
-      <p class="invoice-brand">Bakhoor Al Barkaah</p>
-      <p class="invoice-brand-sub">Tax Invoice</p>
+      <p class="invoice-doc-type"><?= COMPANY_GSTIN !== '' ? 'Tax Invoice' : 'Invoice' ?></p>
+      <p class="invoice-doc-sub">Original for Recipient</p>
     </div>
-    <div class="invoice-header-meta">
-      <p><strong>Invoice #:</strong> <?= htmlspecialchars($order['invoice_number']) ?></p>
-      <p><strong>Order Ref:</strong> #<?= (int)$order['id'] ?></p>
-      <p><strong>Date:</strong> <?= htmlspecialchars(date('d M Y', strtotime($order['created_at']))) ?></p>
-      <p><strong>Payment:</strong> <?= $order['status'] === 'paid' ? 'Paid (Razorpay)' : ucfirst($order['status']) ?></p>
+    <p class="invoice-brand">Bakhoor Al Barkaah</p>
+  </div>
+
+  <div class="invoice-meta-row">
+    <div>
+      <p class="invoice-label">Invoice No.</p>
+      <p><?= htmlspecialchars($order['invoice_number']) ?></p>
+    </div>
+    <div>
+      <p class="invoice-label">Order Ref.</p>
+      <p>#<?= (int)$order['id'] ?></p>
+    </div>
+    <div>
+      <p class="invoice-label">Date</p>
+      <p><?= htmlspecialchars(date('d M Y', strtotime($order['created_at']))) ?></p>
+    </div>
+    <div>
+      <p class="invoice-label">Payment</p>
+      <p><?= $order['status'] === 'paid' ? 'Paid (Razorpay)' : ucfirst($order['status']) ?></p>
     </div>
   </div>
 
   <div class="invoice-parties">
     <div>
+      <p class="invoice-label">Sold By</p>
+      <p class="invoice-party-name">Bakhoor Al Barkaah</p>
+      <p><?= htmlspecialchars(COMPANY_ADDRESS_LINE1) ?>, <?= htmlspecialchars(COMPANY_ADDRESS_LINE2) ?></p>
+      <p><?= htmlspecialchars(COMPANY_PHONE) ?> &middot; <?= htmlspecialchars(COMPANY_EMAIL) ?></p>
+      <?php if (COMPANY_GSTIN !== ''): ?>
+        <p>GSTIN: <?= htmlspecialchars(COMPANY_GSTIN) ?></p>
+      <?php endif; ?>
+    </div>
+    <div>
       <p class="invoice-label">Bill To / Ship To</p>
-      <p><?= htmlspecialchars($customerName) ?></p>
+      <p class="invoice-party-name"><?= htmlspecialchars($customerName) ?></p>
       <p><?= htmlspecialchars($order['shipping_address']) ?></p>
       <p><?= htmlspecialchars($order['shipping_city']) ?>, <?= htmlspecialchars($order['shipping_state']) ?> — <?= htmlspecialchars($order['shipping_pincode']) ?></p>
       <p><?= htmlspecialchars($customerPhone) ?></p>
@@ -71,7 +94,7 @@ $customerPhone = $order['account_phone'] ?? $order['guest_phone'];
 
   <table class="invoice-table">
     <thead>
-      <tr><th>Item</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr>
+      <tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>
     </thead>
     <tbody>
       <?php foreach ($items as $item): ?>
@@ -102,7 +125,9 @@ $customerPhone = $order['account_phone'] ?? $order['guest_phone'];
     </div>
   </div>
 
-  <p class="invoice-footer">Bakhoor Al Barkaah &mdash; this is a system-generated invoice.</p>
+  <p class="invoice-words"><strong>Amount in Words:</strong> <?= htmlspecialchars(amount_in_words((int)$order['total_paise'])) ?></p>
+
+  <p class="invoice-footer">Goods once sold are governed by our Refund &amp; Return Policy. This is a system-generated invoice and does not require a signature.</p>
 </div>
 
 <!-- ============ SHIPPING LABEL ============ -->
