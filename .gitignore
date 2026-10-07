@@ -1,0 +1,9 @@
+# Real credentials — never commit this. Lives only on the server, configured
+# by hand in hPanel/SSH. See config/config.example.php for the template.
+config/config.php
+
+# OS / editor junk
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
